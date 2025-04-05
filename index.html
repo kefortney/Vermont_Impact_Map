@@ -12,15 +12,19 @@
         .navbar .links { float: right; }
         .navbar a { display: block; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; }
         .navbar a:hover { background-color: #ddd; color: black; }
-        <div class="brand">Vermont Impact Map</div>
-        <div class="links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
+    </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="brand">Vermont Impact Map</div>
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+            </div>
         </div>
-    </div>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="data.geojson"></script>
+    <script src="sata/data.geojson"></script>
     <script>
         var map = L.map('map').setView([44.5588, -72.5778], 8); // Coordinates for Vermont
 
