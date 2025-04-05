@@ -13,7 +13,7 @@
         .navbar .links { display: flex; }
         .navbar a { color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; }
         .navbar a:hover { background-color: #ddd; color: black; }
-       : 600px; margin-top: 20px; }
+        #map { height: 600px; margin-top: 20px; }
         .content { padding: 20px; }
         #chartContainer { width: 100%; height: 400px; margin-top: 20px; }
     </style>
@@ -26,16 +26,17 @@
             <a href="about.html">About</a>
         </div>
     </div>
-
     <div id="map"></div>
     <div class="content">
-        <p>The recent removal of federal funding is having significant impacts on Vermont. The state is expected to lose nearly $7 million in federal grants that were crucial for tracking infectious diseases, improving access to vaccines, and addressing health disparities. These cuts are also affecting mental health services, including community-based support and crisis response1. Overall, the funding removal is jeopardizing essential services and public health initiatives, potentially leading to negative consequences for vulnerable populations in Vermont.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
     <div id="chartContainer">
         <canvas id="myChart"></canvas>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="data.geojson"></script>
     <script>
         var map = L.map('map').setView([44.5588, -72.5778], 8); // Coordinates for Vermont
 
@@ -45,7 +46,7 @@
 
         // Load GeoJSON data
         fetch('data/data.geojson')
-            .then(response => response.json())
+           .json())
             .then(data => {
                 L.geoJSON(data, {
                     onEachFeature: function (feature, layer) {
