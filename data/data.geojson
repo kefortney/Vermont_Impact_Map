@@ -4,3 +4,4 @@
     {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.57708, 44.26026]}, "properties": {"title": "Funding Cut","details": "For the state Department of Health, the cuts will terminate roughly $7 million in federal grants that have been used to track infectious disease, improve access to vaccines and address health disparities.","Organization": "State and Local health departments","category": "Medicine", "amount": 7000000}},
     {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.5863, 44.26411]}, "properties": {"title": "Funding Cut","details": "The Vermont Department of Mental Health also expects to lose hundreds of thousands of dollars as a result of now-discontinued grants from the Substance Abuse and Mental Health Services Administration.","Organization": "Vermont Department of Mental Health","category": "Arts", "amount": 200000}}
 ]
+}
