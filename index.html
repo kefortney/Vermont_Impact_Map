@@ -29,11 +29,15 @@
     <div id="map"></div>
     <div class="content">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
     <div id="chartContainer">
         <canvas id="myChart"></canvas>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="data.geojson"></script>
     <script>
         var map = L.map('map').setView([44.5588, -72.5778], 8); // Coordinates for Vermont
 
@@ -43,7 +47,7 @@
 
         // Load GeoJSON data
         fetch('data/data.geojson')
-           .json()
+            .then(response => response.json())
             .then(data => {
                 L.geoJSON(data, {
                     onEachFeature: function (feature, layer) {
@@ -51,7 +55,44 @@
                     }
                 }).addTo(map);
 
+                // Prepare data for the chart
+                var amountsByCategory = {};
+                data.features.forEach(function(feature) {
+                    var category = feature.properties.title;
+                    var amount = feature.properties.amount;
+                    if (amountsByCategory[category]) {
+                        amountsByCategory[category] += amount;
+                    } else {
+                        amountsByCategory[category] = amount;
+                    }
                 });
+
+                var categories = Object.keys(amountsByCategory);
+                var amounts = Object.values(amountsByCategory);
+
+                // Create the chart
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: categories,
+                        datasets: [{
+                            label: 'Amount',
+                            data: amounts,
+                            backgroundColor: 'skyblue',
+                            borderColor: 'blue',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
     </script>
 </body>
 </html>
