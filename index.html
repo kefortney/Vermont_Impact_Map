@@ -5,26 +5,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: Arial, sans-serif; }
         .navbar { background-color: #333; overflow: hidden; }
         .navbar .brand { float: left; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 20px; }
-        .navbar .links { float: right; }
+        float: right; }
         .navbar a { display: block; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; }
         .navbar a:hover { background-color: #ddd; color: black; }
+        #map { height: 600px; margin-top: 20px; }
+        .content { padding: 20px; }
+        #chartContainer { width: 100%; height: 400px; margin-top: 20px; }
     </style>
-    </head>
-    <body>
-        <div class="navbar">
-            <div class="brand">Vermont Impact Map</div>
-            <div class="links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-            </div>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">Vermont Impact Map</div>
+        <div class="links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
         </div>
+    </div>
     <div id="map"></div>
+    <div class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <div id="chartContainer">
+        <canvas id="myChart"></canvas>
+    </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="sata/data.geojson"></script>
+    <script src="data.geojson"></script>
     <script>
         var map = L.map('map').setView([44.5588, -72.5778], 8); // Coordinates for Vermont
 
@@ -41,6 +54,44 @@
                         layer.bindPopup(`<h3>${feature.properties.title}</h3><p>Amount: $${feature.properties.amount}</p>`);
                     }
                 }).addTo(map);
+
+                // Prepare data for the chart
+                var amountsByCategory = {};
+                data.features.forEach(function(feature) {
+                    var category = feature.properties.title;
+                    var amount = feature.properties.amount;
+                    if (amountsByCategory[category]) {
+                        amountsByCategory[category] += amount;
+                    } else {
+                        amountsByCategory[category] = amount;
+                    }
+                });
+
+                var categories = Object.keys(amountsByCategory);
+                var amounts = Object.values(amountsByCategory);
+
+                // Create the chart
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: categories,
+                        datasets: [{
+                            label: 'Amount',
+                            data: amounts,
+                            backgroundColor: 'skyblue',
+                            borderColor: 'blue',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
             });
     </script>
 </body>
