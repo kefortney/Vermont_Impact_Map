@@ -51,44 +51,7 @@
                     }
                 }).addTo(map);
 
-                // Prepare data for the chart
-                var amountsByCategory = {};
-                data.features.forEach(function(feature) {
-                    var category = feature.properties.title;
-                    var amount = feature.properties.amount;
-                    if (amountsByCategory[category]) {
-                        amountsByCategory[category] += amount;
-                    } else {
-                        amountsByCategory[category] = amount;
-                    }
                 });
-
-                var categories = Object.keys(amountsByCategory);
-                var amounts = Object.values(amountsByCategory);
-
-                // Create the chart
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: categories,
-                        datasets: [{
-                            label: 'Amount',
-                            data: amounts,
-                            backgroundColor: 'skyblue',
-                            borderColor: 'blue',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            });
     </script>
 </body>
 </html>
